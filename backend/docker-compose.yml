@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo-init/init.js:/docker-entrypoint-initdb.d/init.js  # Mount the init script
+      - mongo-data:/data/db  # Mount the data volume
+volumes:
+  mongo-data:  # This defines the named volume

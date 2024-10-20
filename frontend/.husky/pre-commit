@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check ESLint Standards
+npm run lint ||
+        (
+                echo '😤🏀👋😤 Get that weak shit out of here! 😤🏀👋😤 
+                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+                false
+        )
+
+npm run build ||
+        (
+                echo '❌👷🔨❌ Better call Lock... Because your build failed ❌👷🔨❌
+            Next build failed: View the errors above to see why. 
+    '
+                false
+        )
