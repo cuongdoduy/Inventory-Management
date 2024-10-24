@@ -32,7 +32,7 @@ export class OrdersController {
   })
   @Get()
   async getAllOrders(): Promise<FindAllResponse<Orders>> {
-    const res = await this.ordersService.findAll()
+    const res = await this.ordersService.getAllOrdersWithSubFields()
     return res
   }
 

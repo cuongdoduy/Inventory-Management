@@ -62,7 +62,7 @@ export function AddNewLocationModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -75,7 +75,7 @@ export function AddNewLocationModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -90,7 +90,7 @@ export function AddNewLocationModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -105,7 +105,7 @@ export function AddNewLocationModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -119,7 +119,7 @@ export function AddNewLocationModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{

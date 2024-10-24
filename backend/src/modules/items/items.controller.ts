@@ -31,8 +31,18 @@ export class ItemsController {
     description: 'Get item details by page.',
   })
   @Get()
-  async getAllItems(): Promise<FindAllResponse<Items>> {
-    const res = await this.itemsService.findAll()
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
+  async getAllItems(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ): Promise<FindAllResponse<Items>> {
+    if (!page || !limit) {
+      return await this.itemsService.findAll()
+    }
+    const skip = (page - 1) * limit
+    const sort = { created_at: -1 }
+    const res = await this.itemsService.findAll({}, {}, { limit, skip, sort })
     return res
   }
 
@@ -57,6 +67,15 @@ export class ItemsController {
   @Get('statistics')
   async getStatistics(): Promise<any> {
     return await this.itemsService.statistics()
+  }
+
+  @ApiOperation({
+    summary: 'Get low stock items',
+    description: 'Get low stock items.',
+  })
+  @Get('low-stock')
+  async getLowStockItems(): Promise<any> {
+    return await this.itemsService.lowStockItems()
   }
 
   @ApiOperation({

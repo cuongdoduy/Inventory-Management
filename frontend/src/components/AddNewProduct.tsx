@@ -11,7 +11,7 @@ import {
   Option,
 } from '@material-tailwind/react'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
-
+2
 export function AddNewProductModal({
   handleAddNewProduct,
   addresses,
@@ -63,7 +63,7 @@ export function AddNewProductModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -76,7 +76,7 @@ export function AddNewProductModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -90,20 +90,22 @@ export function AddNewProductModal({
             </Typography>
             <Input
               size="lg"
-              crossOrigin={false}
+              crossOrigin={undefined}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
-              type='number'
-              onChange={e => setProduct({ ...product, quantity: +e.target.value })}
+              type="number"
+              onChange={e =>
+                setProduct({ ...product, quantity: +e.target.value })
+              }
             />
 
             <Typography variant="h6" color="blue-gray" className="my-1 mt-4">
               Address
             </Typography>
-            <div className="w-72">
+            <div className="w-full">
               <Select
                 label="Select address"
                 onChange={value =>

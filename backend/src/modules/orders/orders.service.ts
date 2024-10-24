@@ -7,6 +7,7 @@ import { ItemsService } from '../items/items.service'
 import { FindAllResponse } from 'src/types/common.type'
 import { Items } from 'src/models/item.schema'
 import { FilterQuery } from 'mongoose'
+import path from 'path'
 
 @Injectable()
 export class OrdersService extends BaseServiceAbstract<Orders> {
@@ -64,5 +65,16 @@ export class OrdersService extends BaseServiceAbstract<Orders> {
     await Promise.all(updatePromises)
 
     return order
+  }
+
+  async getAllOrdersWithSubFields() {
+    return await this.orders_repository.findAllWithSubFields({}, null, {
+      path: 'items.item',
+      select: 'name sku location',
+      populate: {
+        path: 'location',
+        select: 'name address city district country',
+      },
+    })
   }
 }

@@ -48,6 +48,12 @@ export class ItemsService extends BaseServiceAbstract<Items> {
 
   async statistics(): Promise<GroupedItemsBySKU[]> {
     // Group all items by sku and count
+    const items = await this.items_repository.groupItemsBySKU()
+    return items
+  }
+
+  async lowStockItems(): Promise<GroupedItemsBySKU[]> {
+    // Group all items by sku and count
     const items = await this.items_repository.lowQuantityItems()
     return items
   }

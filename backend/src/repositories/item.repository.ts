@@ -47,7 +47,6 @@ export class ItemsRepository
       {
         $group: {
           _id: {
-            location: '$location',
             sku: '$sku',
           },
           totalQuantity: { $sum: '$quantity' },
