@@ -1,4 +1,3 @@
-import { PencilIcon } from '@heroicons/react/24/solid'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import {
   Card,
@@ -8,7 +7,6 @@ import {
   CardBody,
   CardFooter,
   IconButton,
-  Tooltip,
   Input,
   Checkbox,
 } from '@material-tailwind/react'
@@ -18,6 +16,7 @@ import { AddNewProductModal } from './AddNewProduct'
 import { CartContext } from '@/contexts/CartContext'
 import { AddNewOrderModal } from './AddNewOrder'
 import Link from 'next/link'
+import { EditProductModal } from './EditProduct'
 
 const TABLE_HEAD = ['', 'Name', 'SKU', 'Quantity', 'Location', 'Account', '']
 
@@ -81,7 +80,10 @@ export function TransactionsTable() {
       name: string
       sku: string
       quantity: number
-      location: string
+      location: {
+        id: string
+        name: string
+      }
     }>
   >([])
 
@@ -162,7 +164,10 @@ export function TransactionsTable() {
             name: item.name,
             sku: item.sku,
             quantity: item.quantity,
-            location: locations.get(item.location) || '',
+            location: {
+              id: item.location,
+              name: locations.get(item.location) || '',
+            }
           }
         }
       )
@@ -258,7 +263,10 @@ export function TransactionsTable() {
             name: item.name,
             sku: item.sku,
             quantity: item.quantity,
-            location: map.get(item.location),
+            location: {
+              id: item.location,
+              name: map.get(item.location) || '',
+            },
           }
         }
       )
@@ -282,7 +290,7 @@ export function TransactionsTable() {
         name: item.name,
         sku: item.sku,
         quantity: 1,
-        location: item.location,
+        location: item.location.name,
         maxQuantity: item.quantity,
       }
       addToCart?.(addItem)
@@ -344,6 +352,29 @@ export function TransactionsTable() {
 
     clearCart?.()
     setItems(newItems)
+  }
+
+  const handleChangeItem = async (item: {
+    id: string
+    name: string
+    sku: string
+    quantity: number
+    location: string
+  }) => {
+    const response = await fetch('http://localhost:5000/api/items/' + item.id, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: item.name,
+        sku: item.sku,
+        quantity: item.quantity,
+        location: item.location,
+      }),
+    })
+    await response.json()
+    window.location.reload()
   }
 
   return (
@@ -452,15 +483,22 @@ export function TransactionsTable() {
                       variant="small"
                       color="blue-gray"
                       className="font-normal">
-                      {location}
+                      {location.name}
                     </Typography>
                   </td>
                   <td className={classes}>
-                    <Tooltip content="Edit Product">
-                      <IconButton variant="text">
-                        <PencilIcon className="h-4 w-4" />
-                      </IconButton>
-                    </Tooltip>
+                    <EditProductModal
+                      handleEditProduct={handleChangeItem}
+                      productInit={{
+                        id: _id,
+                        name,
+                        sku,
+                        quantity,
+                        address: location.id,
+                      }}
+                      addresses={locations}
+                    />
+                    
                   </td>
                 </tr>
               )
